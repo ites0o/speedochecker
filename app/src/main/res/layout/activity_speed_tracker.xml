@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SpeedTrackerActivity"
+    android:background="@drawable/speer">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/speedTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/speed_0_km_h"
+            android:textSize="50sp"
+            android:textColor="@android:color/white"
+            android:padding="8dp"
+            android:gravity="center"
+            android:shadowColor="@android:color/black"
+            android:shadowDx="2"
+            android:shadowDy="2"
+            android:shadowRadius="2"
+            android:fontFamily="@font/digital_watch_font" />
+
+        <TextView
+            android:id="@+id/distanceTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0.00 km"
+            android:textSize="24sp"
+            android:textColor="@android:color/white"
+            android:padding="8dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/digital_watch_font" />
+
+        <TextView
+            android:id="@+id/averageSpeedTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Average Speed: 0 km/h"
+            android:textSize="18sp"
+            android:textColor="@android:color/white"
+            android:padding="8dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/digital_watch_font" />
+
+        <TextView
+            android:id="@+id/maximumSpeedTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Maximum Speed: 0 km/h"
+            android:textSize="18sp"
+            android:textColor="@android:color/white"
+            android:padding="8dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/digital_watch_font" />
+
+    </LinearLayout>
+
+</RelativeLayout>

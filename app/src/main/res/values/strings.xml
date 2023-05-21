@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Speedocheck2</string>
+    <string name="speed_0_km_h">Speed: 0 km/h</string>
+</resources>
