@@ -11,19 +11,22 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.google.firebase.FirebaseApp
+import com.google.firebase.database.FirebaseDatabase
 
 class SpeedTrackerActivity : AppCompatActivity() {
     private var locationManager: LocationManager? = null
     private var locationListener: LocationListener? = null
     private var speedTextView: TextView? = null
     private var distanceTextView: TextView? = null
-    private var averageSpeedTextView: TextView? = null // Declare averageSpeedTextView
-    private var maximumSpeedTextView: TextView? = null // Declare maximumSpeedTextView
+    private var averageSpeedTextView: TextView? = null
+    private var maximumSpeedTextView: TextView? = null
     private var previousLocation: Location? = null
     private var totalDistance: Float = 0f
     private var averageSpeed: Double = 0.0
     private var maximumSpeed: Double = 0.0
     private var numSpeedUpdates: Int = 0
+    private val database = FirebaseDatabase.getInstance().reference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,8 +34,8 @@ class SpeedTrackerActivity : AppCompatActivity() {
 
         speedTextView = findViewById(R.id.speedTextView)
         distanceTextView = findViewById(R.id.distanceTextView)
-        averageSpeedTextView = findViewById(R.id.averageSpeedTextView) // Initialize averageSpeedTextView
-        maximumSpeedTextView = findViewById(R.id.maximumSpeedTextView) // Assuming you have a TextView with the ID distanceTextView
+        averageSpeedTextView = findViewById(R.id.averageSpeedTextView)
+        maximumSpeedTextView = findViewById(R.id.maximumSpeedTextView)
 
         locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
         locationListener = object : LocationListener {
@@ -40,37 +43,41 @@ class SpeedTrackerActivity : AppCompatActivity() {
                 val speed = location.speed * 3.6
                 speedTextView?.text = String.format("%.2f", speed) + " km/h"
 
-                val prevLocation = previousLocation // Store the value of previousLocation in a local variable
+                val prevLocation = previousLocation
 
-                // Calculate distance
                 if (prevLocation != null) {
                     val distance = location.distanceTo(prevLocation)
                     totalDistance += distance
                 }
 
-                // Update previousLocation
                 previousLocation = location
 
-                // Calculate average speed
                 numSpeedUpdates++
                 averageSpeed = ((averageSpeed * (numSpeedUpdates - 1)) + speed) / numSpeedUpdates
 
-                // Calculate maximum speed
                 if (speed > maximumSpeed) {
                     maximumSpeed = speed
                 }
 
-                // Display the distance traveled
-                val formattedDistance = String.format("%.2f", totalDistance / 1000) // Convert to kilometers
+                val formattedDistance = String.format("%.2f", totalDistance / 1000)
                 distanceTextView?.text = "$formattedDistance km"
 
-                // Display the average and maximum speed
                 val formattedAverageSpeed = String.format("%.2f", averageSpeed)
                 val formattedMaximumSpeed = String.format("%.2f", maximumSpeed)
                 averageSpeedTextView?.text = "Average Speed: $formattedAverageSpeed km/h"
                 maximumSpeedTextView?.text = "Maximum Speed: $formattedMaximumSpeed km/h"
-            }
 
+                // Store data in Firebase Realtime Database
+                val speedData = hashMapOf("speed" to speed)
+                val distanceData = hashMapOf("distance" to totalDistance)
+                val averageSpeedData = hashMapOf("average_speed" to averageSpeed)
+                val maximumSpeedData = hashMapOf("maximum_speed" to maximumSpeed)
+
+                database.child("speed").push().setValue(speedData)
+                database.child("distance").push().setValue(distanceData)
+                database.child("average_speed").push().setValue(averageSpeedData)
+                database.child("maximum_speed").push().setValue(maximumSpeedData)
+            }
 
             override fun onStatusChanged(provider: String, status: Int, extras: Bundle?) {}
             override fun onProviderEnabled(provider: String) {}

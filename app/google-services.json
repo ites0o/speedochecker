@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "990497908758",
+    "project_id": "speedochecker",
+    "storage_bucket": "speedochecker.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:990497908758:android:f21e822ce294fe76a56d37",
+        "android_client_info": {
+          "package_name": "com.example.speedocheck2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "990497908758-1eh1pi3gtmid3q5ocp11evemf9aju22d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD8Ba3p2bN5emx2JI3qyUlMFjAeYLEq__o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "990497908758-1eh1pi3gtmid3q5ocp11evemf9aju22d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
